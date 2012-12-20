@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Gravatarize Droid</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="txtview_email">Enter email-id:</string>
+    <string name="txtview_downloading">Downloading</string>
+	<string name="btn_search">Search</string>
+	<string name="content_imagegravatar">The downloaded gravatar after searching will go here</string>
+</resources>
