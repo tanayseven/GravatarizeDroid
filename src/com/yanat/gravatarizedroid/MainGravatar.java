@@ -28,13 +28,7 @@ public class MainGravatar extends Activity implements OnClickListener {
 		edit_email = (EditText) findViewById(R.id.edittxt_email);
 		button_search = (Button) findViewById(R.id.btn_search);
 		button_search.setOnClickListener(this);
-		downloading = (TextView) findViewById(R.id.txtview_downloading);
-		progress_downloading = (ProgressBar) findViewById(R.id.progressbar_downloading);
 		image_gravatar = (ImageView) findViewById(R.id.imageView_gravatar);
-		
-		connection = new HTTPConnection();
-		downloading.setText("Done");
-		progress_downloading.setEnabled(false);
 	}
 	
 	@Override
@@ -50,29 +44,23 @@ public class MainGravatar extends Activity implements OnClickListener {
 		switch(v.getId())
 		{
 		case R.id.btn_search:
-				searchClicked();
+			   downloadGravatar();
 		}
 	}
 	
-	private void searchClicked()
+	private void downloadGravatar()
 	{
-		progress_downloading.setEnabled(true);
-		downloading.setText("Generating MD5 Hash...");
+		connection = new HTTPConnection();
 		MD5hash = MD5Hash.getMD5Hash(edit_email.getText().toString());
 		edit_email.selectAll();
 		connection.setHashCode(MD5hash);
-		downloading.setText("Connecting...");
 		connection.createURL();
 		connection.execute();
-		downloading.setText("Downloading...");
 		System.out.println("Waiting...");
 		while(connection.isBusy())
 		{
 		}
 		System.out.println("Waiting over");
 		image_gravatar.setImageDrawable(connection.getDrawable());
-		downloading.setText("Done");
-		downloading.setEnabled(false);
-		progress_downloading.setEnabled(false);
 	}
 }
