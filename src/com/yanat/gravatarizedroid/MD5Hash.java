@@ -3,8 +3,6 @@ package com.yanat.gravatarizedroid;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
 
-import android.text.Editable;
-
 public abstract class MD5Hash 
 {
 	public static String getHexString(byte[] b)

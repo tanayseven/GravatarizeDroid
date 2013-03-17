@@ -1,25 +1,23 @@
 package com.yanat.gravatarizedroid;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 
-public class HTTPConnection extends AsyncTask<Object, Void, Boolean>
+public class HTTPConnection extends AsyncTask<Object, Integer, Boolean>
 {
 	protected final String baseURL = "http://www.gravatar.com/avatar/";
 	protected String mainURL;
 	protected String hashcode;
 	protected final String extension = ".jpg";
 	protected boolean busy;
+	protected Integer downloadProgress;
+	protected MainGravatar callersObject;
 	
 	protected Drawable drawable;
 	
@@ -28,6 +26,7 @@ public class HTTPConnection extends AsyncTask<Object, Void, Boolean>
 		mainURL = hashcode = "";
 		drawable = null;
 		busy = false;
+		downloadProgress = 0;
 	}
 	
 	public void createURL()
@@ -41,9 +40,18 @@ public class HTTPConnection extends AsyncTask<Object, Void, Boolean>
 		this.hashcode = hashcode;
 	}
 
+	public void setCallersObject(MainGravatar object)
+	{
+		callersObject = object;
+	}
 	public Drawable getDrawable()
 	{
 		return drawable;
+	}
+	
+	public Integer getProgress()
+	{
+		return downloadProgress;
 	}
 	
 	public boolean isBusy()
@@ -84,5 +92,10 @@ public class HTTPConnection extends AsyncTask<Object, Void, Boolean>
 			e.printStackTrace();
 		}
 		return false;
+	}
+	@Override
+	protected void onPostExecute(Boolean status) 
+	{
+		callersObject.downloadingOver();
 	}
 }
